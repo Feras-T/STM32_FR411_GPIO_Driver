@@ -1,4 +1,3 @@
-cat > DEBUG_LOG.md << 'EOF'
 # Debug Log — GPIO Driver
 
 ## [1] DISABLE branch never executed in IRQ config

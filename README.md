@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # STM32F411 GPIO Driver (Bare-Metal)
 
 Register-level GPIO driver for STM32F411, written without HAL/LL libraries.
