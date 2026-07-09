@@ -66,7 +66,7 @@ void SPI_Init(SPI_Handle_t *pSPIHandle)  // (void), the parameters will be writt
 
 	//1. configure the device mode
 	//Decive control wherthere to be master or slave
-	tempreg |= pSPIHandle->SPIConfig.SPI_DeviceMode <<2 ;
+	tempreg |= pSPIHandle->SPIConfig.SPI_DeviceMode <<SPI_CR1_MSTR ; //SPI_CR1 Bit2
 
 	//2.configure the bus config
 	//At full duplex
@@ -74,17 +74,17 @@ void SPI_Init(SPI_Handle_t *pSPIHandle)  // (void), the parameters will be writt
 	if(pSPIHandle->SPIConfig.SPI_BusConfig == SPI_BUS_CONFIG_FD)
 	{
 		//bidi shall be cleared
-		tempreg &=~(1<<15);  //bidi control bit 15
+		tempreg &=~(1<<SPI_CR1_BIDIMODE);  //bidi SPI_CR1 control bit 15
 	}else if (pSPIHandle->SPIConfig.SPI_BusConfig == SPI_BUS_CONFIG_HD)
 	{
 		//bidi shall be set
-		tempreg |= (1<<15);
+		tempreg |= (1<<SPI_CR1_BIDIMODE);
 	}else if (pSPIHandle->SPIConfig.SPI_BusConfig == SPI_BUS_CONFIG_HD)
 	{
 		//bidi shall be cleared
-		tempreg &=~(1<<15);
+		tempreg &=~(1<<SPI_CR1_BIDIMODE);
 		//RXONLY bit must be set
-		tempreg |= (1 <<10); // RX only control bit 10
+		tempreg |= (1 <<SPI_CR1_RXONLY); // RX only SPI_CR1 control bit 10
 	}
 
 	// 3. Configure the spi serial Clock speed (baud rate)
