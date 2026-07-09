@@ -45,10 +45,10 @@ typedef struct
 /*
  * @SPI_BusConfig
  */
-#define SPI_BUS_CONFIG_FD						1	Full duplex
-#define SPI_BUS_CONFIG_FD						2	Hlaf duplex
+#define SPI_BUS_CONFIG_FD						1	//Full duplex
+#define SPI_BUS_CONFIG_HD						2	//Hlaf duplex
 //#define SPI_BUS_CONFIG_SIMPLEX_TXONLY			3	Simplex Tx only , acculy we dont need to prgram it spimpex txonly is just full duplex and just remve rx line
-#define SPI_BUS_CONFIG_SIMPLEX_RXONLY			4	Simplex RXONLY
+#define SPI_BUS_CONFIG_SIMPLEX_RXONLY			4	//Simplex RXONLY
 
 /*
  * @SPI_SclkSpeed

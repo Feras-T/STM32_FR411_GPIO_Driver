@@ -62,8 +62,50 @@ void SPI_PeriClockControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
  */
 void SPI_Init(SPI_Handle_t *pSPIHandle)  // (void), the parameters will be written later
 {
+	uinit tempreg =0;
 
-}
+	//1. configure the device mode
+	//Decive control wherthere to be master or slave
+	tempreg |= pSPIHandle->SPIConfig.SPI_DeviceMode <<2 ;
+
+	//2.configure the bus config
+	//At full duplex
+
+	if(pSPIHandle->SPIConfig.SPI_BusConfig == SPI_BUS_CONFIG_FD)
+	{
+		//bidi shall be cleared
+		tempreg &=~(1<<15);  //bidi control bit 15
+	}else if (pSPIHandle->SPIConfig.SPI_BusConfig == SPI_BUS_CONFIG_HD)
+	{
+		//bidi shall be set
+		tempreg |= (1<<15);
+	}else if (pSPIHandle->SPIConfig.SPI_BusConfig == SPI_BUS_CONFIG_HD)
+	{
+		//bidi shall be cleared
+		tempreg &=~(1<<15);
+		//RXONLY bit must be set
+		tempreg |= (1 <<10); // RX only control bit 10
+	}
+
+	// 3. Configure the spi serial Clock speed (baud rate)
+	tempreg |= pSPIHandle->SPIConfig.SPI_SclkSpeed <<3 ;
+
+	// 4. Configure the spi serial Clock speed (baud rate)
+	tempreg |= pSPIHandle->SPIConfig.SPI_DFF << 11 ;
+
+	// 5. Configure the spi serial Clock speed (baud rate)
+	tempreg |= pSPIHandle->SPIConfig.SPI_CPOL <<1 ;
+
+	// 6. Configure the spi serial Clock speed (baud rate)
+	tempreg |= pSPIHandle->SPIConfig.SPI_CPHA <<0 ;
+
+	pSPIHandle ->pSPIx->CR1 =tempreg;
+
+
+
+	}
+
+
 
 
 /*
@@ -91,6 +133,8 @@ void SPI_Init(SPI_Handle_t *pSPIHandle)  // (void), the parameters will be writt
 
 void SPI_DeInit(SPI_RegDef_t *pSPIx)
 {
+
+
 
 }
 
